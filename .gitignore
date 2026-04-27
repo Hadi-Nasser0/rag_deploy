@@ -1,2 +1,7 @@
 .env
 notes
+src/__pycache__/__init__.cpython-312.pyc
+src/pipeline/__pycache__/__init__.cpython-312.pyc
+src/pipeline/__pycache__/ingest.cpython-312.pyc
+src/utils/__pycache__/__init__.cpython-312.pyc
+src/utils/__pycache__/config.cpython-312.pyc
