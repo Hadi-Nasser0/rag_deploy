@@ -5,3 +5,6 @@ src/pipeline/__pycache__/__init__.cpython-312.pyc
 src/pipeline/__pycache__/ingest.cpython-312.pyc
 src/utils/__pycache__/__init__.cpython-312.pyc
 src/utils/__pycache__/config.cpython-312.pyc
+src/pipeline/retrieve.py
+src/pipeline/__pycache__/retrieve.cpython-312.pyc
+src/pipeline/__pycache__/embed.cpython-312.pyc
