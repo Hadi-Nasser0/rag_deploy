@@ -4,7 +4,7 @@ from pathlib import Path
 LOG_DIR = Path("logs")
 LOG_DIR.mkdir(exist_ok=True)
 
-def get_logger(name: str = __name__, log_file: str = "rag.log") -> logging.logger: 
+def get_logger(name: str = __name__, log_file: str = "rag.log") -> logging.Logger: 
     """
     Args:
         name (str): Logger name (usually __name__)
