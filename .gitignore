@@ -11,3 +11,7 @@ src/pipeline/__pycache__/embed.cpython-312.pyc
 logs/rag.log
 src/pipeline/__pycache__/generate.cpython-312.pyc
 src/utils/__pycache__/logger.cpython-312.pyc
+src/api/__pycache__/services.cpython-312.pyc
+src/database/__pycache__/models_db.cpython-312.pyc
+src/database/__pycache__/session.cpython-312.pyc
+tests/__pycache__/test_database.cpython-312-pytest-9.0.3.pyc
