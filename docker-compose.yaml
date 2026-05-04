@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
   web:
-    #image: ?
-    # container_name: genai_web
+    image: hadinsr/genai-rag-assistant:latest
+    container_name: genai_web
     build: .
     ports:
       - "7870:7860"

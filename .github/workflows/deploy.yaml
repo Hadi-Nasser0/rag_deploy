@@ -1,0 +1,68 @@
+name: CI/CD Docker Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE: hadinsr/genai-rag-assistant:latest
+  NAME: genai_web
+  HOST_PORT: 7870
+  CONTAINER_PORT: 7860
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Deploy to EC2
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+
+            USER="${{ secrets.EC2_USER }}"
+            IMAGE="${{ env.IMAGE }}"
+            HOST_PORT="${{ env.HOST_PORT }}"
+            CONTAINER_PORT="${{ env.CONTAINER_PORT }}"
+            PROJECT_DIR="/home/${USER}/genai-rag-assistant"
+
+            echo "📂 Updating deployment directory..."
+            if [ ! -d "$PROJECT_DIR" ]; then
+              cd /home/${USER}
+              git clone https://github.com/Hadi-Nasser0/rag_deploy.git genai-rag-assistant
+            fi
+
+            cd $PROJECT_DIR
+            git fetch origin main
+            git reset --hard origin/main
+
+            echo "🧹 Cleaning old containers, images, and volumes..."
+            docker compose down -v || true
+
+            # 🔥 Remove any leftover containers with same name
+            docker rm -f genai_db || true
+            docker rm -f genai_web || true
+
+            docker system prune -af --volumes || true
+
+            echo "💽 Pulling latest Docker image..."
+            docker pull $IMAGE
+
+            echo "🔧 Updating docker-compose.yaml to use the latest image..."
+            sed -i "s|image: .*|image: $IMAGE|" docker-compose.yaml
+
+            echo "📦 Starting containers..."
+            docker compose up -d
+
+            echo "✅ Deployment completed!"
+            echo "🌍 App should be live at: http://$(curl -s ifconfig.me):${HOST_PORT}" 
