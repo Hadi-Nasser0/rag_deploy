@@ -15,17 +15,18 @@ services:
     restart: always
 
   # FastAPI service exposing OpenAPI docs at /docs
-  api:
-    build: .
-    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
-    ports:
-      - "8000:8000"
-    environment:
-      - DATABASE_URL=postgresql+psycopg2://rag_role:mypassword@db:5432/rag_db
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-    depends_on:
-      - db
-    restart: always
+  #api:
+    #build: .
+    #command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
+    #ports:
+      #- "8000:8000"
+    #environment:
+      #- DATABASE_URL=postgresql+psycopg2://rag_role:mypassword@db:5432/rag_db
+      #- OPENAI_API_KEY=${OPENAI_API_KEY}
+    #depends_on:
+      #- db
+    #restart: always
+ 
 
   db:
     image: postgres:16
@@ -42,3 +43,6 @@ services:
 
 volumes:
   postgres_data_new:
+
+# to run: docker compose up --build
+# to stop: docker compose down
