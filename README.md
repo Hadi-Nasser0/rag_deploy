@@ -1,7 +1,7 @@
-# Project Title
+# GenAI-rag-assistant
 
 ## Description
-The application provides a Retrieval‑Augmented Generation (RAG) service. It
+The application provides a GenAI based on Retrieval‑Augmented Generation (RAG) service. It
 exposes an API that accepts a user query, retrieves relevant documents from a
 vector store, and generates a response using a large language model. The
 architecture consists of three main components:
